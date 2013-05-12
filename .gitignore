@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+
+public/assets/screen.css
+config.json
+
+*.sublime-*

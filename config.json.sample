@@ -1,0 +1,14 @@
+{
+  "port": 26201,
+  "nameservers": [
+    "8.8.8.8"
+  ],
+  "airbrake": {
+    "enabled": false,
+    "key": ""
+  },
+  "gosquared": {
+    "enabled": false,
+    "key": ""
+  }
+}
