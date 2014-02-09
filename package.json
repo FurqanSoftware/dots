@@ -8,7 +8,7 @@
   "main": "index.js",
   "repository": "git://github.com/hjr265/dots",
   "scripts": {
-    "start": "node index.js"
+    "start": "iced app.iced"
   },
   "dependencies": {
     "airbrake": "~0.2.9",
