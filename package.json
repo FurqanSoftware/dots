@@ -18,6 +18,7 @@
     "maxmind-native": "~0.1.2",
     "native-dns": "~0.4.1",
     "node-whois": "~0.3.3",
-    "stylus": "~0.42.2"
+    "stylus": "~0.42.2",
+    "underscore": "~1.6.0"
   }
 }
