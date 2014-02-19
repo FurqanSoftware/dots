@@ -1,6 +1,6 @@
 {
   "name": "dots",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A simple networking toolkit",
   "bugs": "http://github.com/hjr265/dots/issues",
   "license": "FreeBSD",
