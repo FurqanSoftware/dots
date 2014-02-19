@@ -1,6 +1,6 @@
+_ = require 'underscore'
 airbrake = require 'airbrake'
 path = require 'path'
-config = require './config.json'
 dots = require './dots'
 express = require 'express'
 stylus = require 'stylus'
@@ -9,12 +9,14 @@ stylus = require 'stylus'
 app = express()
 
 app.configure ->
-  app.set 'port', process.env.PORT || config.port || 3000
+  app.set 'port', process.env.PORT || 3000
   app.set 'views', path.join __dirname, 'views'
   app.set 'view engine', 'jade'
   app.disable 'x-powered-by'
 
-  app.locals.gosquared = config.gosquared
+  _.extend app.locals, _.pick process.env, [
+    'GOSQUARED_KEY'
+  ]
 
   app.use express.logger 'dev'
 
@@ -31,8 +33,8 @@ app.configure ->
 
   app.use app.router
 
-  if config.airbrake.enabled
-    airbrake = airbrake.createClient(config.airbrake.key)
+  if process.env.AIRBRAKE_KEY
+    airbrake = airbrake.createClient(process.env.AIRBRAKE_KEY)
     airbrake.handleExceptions()
 
     app.use (err, req, res, next) ->

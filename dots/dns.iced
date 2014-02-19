@@ -1,8 +1,8 @@
-config = require '../config'
+_ = require 'underscore'
 dns = require 'native-dns'
 
 
-SERVERS = config.nameservers
+SERVERS = process.env.NAMESERVERS.split ','
 
 
 exports.lookup = (type, addr, done) ->
@@ -10,7 +10,7 @@ exports.lookup = (type, addr, done) ->
     question: new dns.Question
       type: type
       name: addr
-    server: SERVERS[0]
+    server: _.sample SERVERS
     timeout: 5000
 
   timedout = no
