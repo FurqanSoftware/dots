@@ -11,14 +11,14 @@
     "start": "iced app.iced"
   },
   "dependencies": {
-    "airbrake": "~0.3.8",
-    "express": "~3.4.8",
-    "iced-coffee-script": "~1.7.1-a",
-    "jade": "~1.1.5",
-    "maxmind-native": "~0.1.2",
-    "native-dns": "~0.4.1",
-    "node-whois": "~0.3.4",
-    "stylus": "~0.42.2",
-    "underscore": "~1.6.0"
+    "airbrake": "^0.3.8",
+    "express": "^4.8.5",
+    "iced-coffee-script": "^1.7.1-f",
+    "jade": "^1.5.0",
+    "maxmind-native": "^0.1.2",
+    "native-dns": "^0.6.1",
+    "node-whois": "^2.0.11",
+    "stylus": "^0.47.3",
+    "underscore": "^1.6.0"
   }
 }
