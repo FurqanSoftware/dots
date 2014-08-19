@@ -8,53 +8,44 @@ stylus = require 'stylus'
 
 app = express()
 
-app.configure ->
-  app.set 'port', process.env.PORT || 3000
-  app.set 'views', path.join __dirname, 'views'
-  app.set 'view engine', 'jade'
-  app.disable 'x-powered-by'
+app.set 'view engine', 'jade'
+app.disable 'x-powered-by'
 
-  _.extend app.locals, _.pick process.env, [
-    'GOSQUARED_KEY'
-  ]
+_.extend app.locals, _.pick process.env, [
+  'GOSQUARED_KEY'
+]
 
-  app.use express.logger 'dev'
+app.use (require 'morgan')()
 
-  app.use express.timeout 30000
-  app.use express.limit '64kb'
+app.use (require 'body-parser')()
 
-  app.use express.bodyParser()
+app.use stylus.middleware
+  src: path.join __dirname, 'public'
+  compress: on
 
-  app.use stylus.middleware
-    src: path.join __dirname, 'public'
-    compress: on
+app.use express.static path.join __dirname, 'public'
 
-  app.use express.static path.join __dirname, 'public'
+if process.env.AIRBRAKE_KEY
+  airbrake = airbrake.createClient(process.env.AIRBRAKE_KEY)
+  airbrake.handleExceptions()
 
-  app.use app.router
+  app.use (err, req, res, next) ->
+    airbrake.notify err, ->
+      next err
 
-  if process.env.AIRBRAKE_KEY
-    airbrake = airbrake.createClient(process.env.AIRBRAKE_KEY)
-    airbrake.handleExceptions()
 
-    app.use (err, req, res, next) ->
-      airbrake.notify err, ->
-        next err
-
-app.configure 'development', ->
-  app.locals.pretty = on
-
-  app.use express.errorHandler()
-
-app.get /.*/, (req, res) ->
+app.route('/*')
+.get((req, res) ->
   if req.path == '/' and req.query.addr
     res.redirect "/#{req.query.addr}"
     return
 
   res.render 'index'
+)
 
 
-app.post '/', (req, res, next) ->
+app.route('/')
+.post((req, res, next) ->
   if not req.xhr
     res.send 403
     return
@@ -78,7 +69,8 @@ app.post '/', (req, res, next) ->
 
     else
       next err
+)
 
 
-app.listen app.get('port'), ->
-  console.log "Listening on #{app.get 'port'}"
+app.listen (port = process.env.PORT), ->
+  console.log "Listening on #{port}"
