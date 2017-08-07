@@ -1,0 +1,14 @@
+# Copyright 2017 The Toph Authors. All rights reserved.
+
+application:
+  name: Dots
+  identifier: dots
+
+  programs:
+    web:
+      name: Web Server
+      command: npm start
+      container:
+        dockerfile: Dockerfile
+      ports:
+        - 50180:80
