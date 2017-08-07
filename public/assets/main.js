@@ -235,7 +235,7 @@ $(function() {
             return;
           }
         }
-        
+
         var addrChg = addr != addrCur;
         addrCur = addr;
         typeCur = type;
@@ -253,7 +253,7 @@ $(function() {
             $this.toggle(QUERIES[type].types.indexOf(addrKind) != -1);
           });
         }
-        
+
         $('#' + type).addClass('loading');
 
         switch(QUERIES[type].output) {

@@ -5,6 +5,20 @@ body
   width 990px
   margin 0 auto
 
+a
+  &, &:hover, &:focus, &:active
+    color #0099e5
+
+  &:hover
+    text-decoration none
+
+.nav-pills > .active > a
+  &, &:hover, &:focus
+    background-color #0099e5
+
+.btn-primary
+  background-color #0099e5
+
 #head
   margin 25px 0 0
 
@@ -12,8 +26,12 @@ body
     color #444
 
   .logo
-    float left
+    position relative
+    left -4px
     text-decoration none
+
+  .credit
+    color #888
 
 #main
   margin 30px 0 0
