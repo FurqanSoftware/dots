@@ -5,3 +5,5 @@ public/assets/screen.css
 config.json
 
 *.sublime-*
+
+.env*
