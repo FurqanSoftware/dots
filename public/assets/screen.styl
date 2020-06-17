@@ -1,26 +1,42 @@
-body, input, select
-  font 13px 'Asap', sans-serif
+body,
+pre,
+.github-fork-ribbon
+  font-family 'Space Mono', monospace
 
 body
-  width 990px
+  max-width 990px
   margin 0 auto
 
-a
-  &, &:hover, &:focus, &:active
-    color #0099e5
+a, a:hover, a:focus, a:active,
+table a:not(.btn), .table a:not(.btn)
+  color #0099e5
+  text-decoration none
 
-  &:hover
-    text-decoration none
+.nav-pills
+  margin-bottom 2rem
 
-.nav-pills > .active > a
-  &, &:hover, &:focus
-    background-color #0099e5
+  > li > a
+    transition background-color 0.25s ease-in-out
+
+    &:hover, &:focus
+      background-color alpha(#0099e5, 15%)
+  
+  > li.active > a
+    &, &:hover, &:focus
+      background-color #0099e5
+
+.btn
+  transition border-color 0.25s ease-in-out, background-color 0.25s ease-in-out
 
 .btn-primary
-  background-color #0099e5
+  &
+    background-color #0099e5
+
+  &:hover, &:focus
+    background-color darken(#0099e5, 15%)
 
 #head
-  margin 25px 0 0
+  margin 15px 0 0
 
   a
     color #444
@@ -29,6 +45,9 @@ a
     position relative
     left -4px
     text-decoration none
+
+    h1
+      font-family 'Major Mono Display', monospace
 
   .credit
     color #888
@@ -40,7 +59,7 @@ a
     display none
 
 #prompt
-  margin 20px 0 0
+  margin 35px 0 0
 
 #geo .map
   width 100%
@@ -49,8 +68,16 @@ a
 #whois pre
   height 425px
   overflow auto
-  font 13px 'Ubuntu Mono'
   color #080808
 
-.loading
-  opacity 0.5
+.table-bordered,
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td
+  border-color #e7ecf1
+
+.github-fork-ribbon:before
+  background-color black

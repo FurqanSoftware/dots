@@ -2,16 +2,20 @@ doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width,initial-scale=1')
     title Dots by Furqan Software
 
+    link(rel='stylesheet', href='//fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Major+Mono+Display:wght@400&display=swap')
     link(rel='stylesheet', href='//api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css')
-    link(rel='stylesheet', href='/assets/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css')
     link(rel='stylesheet', href='/assets/screen.css')
 
     script(src='//api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js')
     script(src='/assets/jquery.min.js')
     script(src='/assets/jquery.history.min.js')
-    script(src='/assets/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js')
     script(src='/assets/main.js')
 
     if GOSQUARED_KEY
@@ -19,23 +23,26 @@ html(lang='en')
         var GoSquared={};GoSquared.acct='#{GOSQUARED_KEY}';(function(w){function gs(){w._gstc_lt=+new Date;var d=document,g=d.createElement('script');g.type='text/javascript';g.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';var s=d.getElementsByTagName('script')[0];s.parentNode.insertBefore(g,s);}w.addEventListener ?w.addEventListener('load',gs,false) :w.attachEvent('onload',gs);})(window);
 
   body
-    div.container
+    div.container-fluid
       header#head
         div.row
-          div.span2
+          div.col-md-3
             a.logo(href='/')
               h1 Dots
             p.credit  By 
               | 
               a(href='https://furqansoftware.com') Furqan Software
 
-          div.span10
+          div.col-md-9
             div#prompt
-              form
-                div.input-append
-                  input(type='text', name='addr', data-toggle='tooltip', title='Enter a domain name or IP address, e.g. toph.co or 66.228.46.60', autocomplete='off')
-                  button.btn.btn-primary
-                    i.icon.icon-chevron-right.icon-white
+              form.form-horizontal(spellcheck='false')
+                div.form-group
+                  div.col-lg-6
+                    div.input-group
+                      input.form-control(type='text', name='addr', data-toggle='tooltip', title='Enter a domain name or IP address, e.g. toph.co or 66.228.46.60', autocomplete='off')
+                      span.input-group-btn
+                        button.btn.btn-primary
+                          i(data-feather='chevron-right', style='float: left;')
 
       div#main
         section#home
@@ -71,7 +78,7 @@ html(lang='en')
 
           section#a
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -81,7 +88,7 @@ html(lang='en')
 
           section#aaaa
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -91,7 +98,7 @@ html(lang='en')
 
           section#cname
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -101,7 +108,7 @@ html(lang='en')
 
           section#mx
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -112,7 +119,7 @@ html(lang='en')
 
           section#naptr
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -126,7 +133,7 @@ html(lang='en')
 
           section#ns
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -136,7 +143,7 @@ html(lang='en')
 
           section#ptr
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -146,7 +153,7 @@ html(lang='en')
 
           section#soa
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -162,7 +169,7 @@ html(lang='en')
 
           section#srv
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -175,7 +182,7 @@ html(lang='en')
 
           section#txt
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -185,7 +192,7 @@ html(lang='en')
 
           section#rdns
             div.row
-              div.span12
+              div.col-md-12
                 table.table.table-bordered
                   thead
                     tr
@@ -194,15 +201,17 @@ html(lang='en')
 
           section#whois
             div.row
-              div.span12
+              div.col-md-12
                 pre
 
           section#geo
             div.row
-              div.span12
+              div.col-md-12
                 div.map
 
-    a(href='https://github.com/FurqanSoftware/dots')
-      img(src='https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png', alt='Fork me on GitHub', style='position: fixed; top: 0; right: 0; border: 0;')
+    a.github-fork-ribbon(href='https://github.com/FurqanSoftware/dots', data-ribbon="Fork me on GitHub",  title="Fork me on GitHub") Fork me on GitHub
+
+    script(type='text/javascript').
+      feather.replace({ width: 21, height: 21, 'stroke-width': 4 })
 
     script(data-goatcounter="https://goatcounter.dots.fsapp.co/count" src="//goatcounter.dots.fsapp.co/count.js" async)
