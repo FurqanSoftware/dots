@@ -1,5 +1,4 @@
 _ = require 'underscore'
-airbrake = require 'airbrake'
 path = require 'path'
 dots = require './dots'
 express = require 'express'
@@ -24,14 +23,6 @@ app.use stylus.middleware
   compress: on
 
 app.use express.static path.join __dirname, 'public'
-
-if process.env.AIRBRAKE_KEY
-  airbrake = airbrake.createClient(process.env.AIRBRAKE_KEY)
-  airbrake.handleExceptions()
-
-  app.use (err, req, res, next) ->
-    airbrake.notify err, ->
-      next err
 
 
 app.route('/*')
