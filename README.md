@@ -1,3 +1,3 @@
-# Dots [![Stories in Ready](https://badge.waffle.io/hjr265/dots.png?label=ready&title=Ready)](https://waffle.io/hjr265/dots)
+# Dots
 
-Dots is a tiny networking toolkit.
+Dots is a DNS lookup tool by [Furqan Software](https://furqansoftware.com).
