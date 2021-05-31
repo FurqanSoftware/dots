@@ -7,7 +7,7 @@ stylus = require 'stylus'
 
 app = express()
 
-app.set 'view engine', 'jade'
+app.set 'view engine', 'pug'
 app.disable 'x-powered-by'
 
 _.extend app.locals, _.pick process.env, [

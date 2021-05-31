@@ -1,4 +1,4 @@
-whois = require 'node-whois'
+whois = require 'whois'
 
 
 exports.lookup = (addr, done) ->
