@@ -5,15 +5,13 @@
   "bugs": "http://github.com/hjr265/dots/issues",
   "license": "FreeBSD",
   "author": "Mahmud Ridwan <m@hjr265.me>",
-  "main": "index.js",
   "repository": "git://github.com/hjr265/dots",
   "scripts": {
-    "start": "iced app.iced"
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "^1.6.5",
     "express": "^4.8.5",
-    "iced-coffee-script": "^1.7.1-f",
     "maxmind-native": "^0.1.2",
     "morgan": "^1.2.3",
     "native-dns": "^0.7.0",
