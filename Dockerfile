@@ -1,1 +1,1 @@
-FROM cardboard/node:8.2
+FROM cardboard/node:14.16
