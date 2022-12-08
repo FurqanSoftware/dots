@@ -10,8 +10,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "^1.6.5",
-    "express": "^4.8.5",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
     "maxmind-native": "^0.1.2",
     "morgan": "^1.2.3",
     "native-dns": "^0.7.0",
