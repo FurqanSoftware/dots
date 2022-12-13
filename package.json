@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "body-parser": "^1.6.5",
-    "express": "^4.8.5",
+    "express": "^4.17.3",
     "maxmind-native": "^0.1.2",
     "morgan": "^1.2.3",
     "native-dns": "^0.7.0",
