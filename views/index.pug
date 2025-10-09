@@ -6,21 +6,25 @@ html(lang='en')
     title Dots by Furqan Software
 
     link(rel='stylesheet', href='//fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Major+Mono+Display:wght@400&display=swap')
-    link(rel='stylesheet', href='//api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css')
+    link(rel='stylesheet', href='//api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css')
     link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css')
     link(rel='stylesheet', href='/assets/screen.css')
 
-    script(src='//api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js')
+    script(src='//api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js')
     script(src='/assets/jquery.min.js')
     script(src='/assets/jquery.history.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js')
-    script(src='/assets/main.js')
+    
+    script(type='text/javascript')
+      | mapboxgl.accessToken = '#{MAPBOX_TOKEN}'
 
     if GOSQUARED_KEY
       script(type='text/javascript')
-        var GoSquared={};GoSquared.acct='#{GOSQUARED_KEY}';(function(w){function gs(){w._gstc_lt=+new Date;var d=document,g=d.createElement('script');g.type='text/javascript';g.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';var s=d.getElementsByTagName('script')[0];s.parentNode.insertBefore(g,s);}w.addEventListener ?w.addEventListener('load',gs,false) :w.attachEvent('onload',gs);})(window);
+        | var GoSquared={};GoSquared.acct='#{GOSQUARED_KEY}';(function(w){function gs(){w._gstc_lt=+new Date;var d=document,g=d.createElement('script');g.type='text/javascript';g.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';var s=d.getElementsByTagName('script')[0];s.parentNode.insertBefore(g,s);}w.addEventListener ?w.addEventListener('load',gs,false) :w.attachEvent('onload',gs);})(window);
+
+    script(src='/assets/main.js')
 
   body
     div.container-fluid

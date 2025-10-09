@@ -158,12 +158,12 @@ $(function () {
       },
     };
 
-    var map = mapbox.map($("#geo .map")[0]);
-    map.addLayer(mapbox.layer().id("hjr265.map-oc3vrjnl"));
-    map.ui.zoomer.add();
-    map.ui.attribution
-      .add()
-      .content('<a href="http://mapbox.com/about/maps">Powered by MapBox</a>');
+    var map = new mapboxgl.Map({
+      container: $("#geo .map")[0],
+      style: "mapbox://styles/mapbox/streets-v11",
+    });
+    const nav = new mapboxgl.NavigationControl();
+    map.addControl(nav, "top-right");
 
     var addrCur = null,
       typeCur = null;
@@ -258,8 +258,12 @@ $(function () {
               break;
 
             case "map":
-              map.zoom(2).center({ lat: 0, lon: 0 });
-              map.removeLayer("markers");
+              map.setZoom(2).setCenter([0, 0]);
+              if (map.getLayer("markers")) {
+                map.removeLayer("markers");
+                map.removeSource("markersSource");
+              }
+              map.resize();
 
             case "pre":
               $("#" + type + " pre").html("");
@@ -329,29 +333,53 @@ $(function () {
                     return true;
                   });
 
-                  map.zoom(2).center({ lat: 0, lon: 0 });
-                  map.removeLayer("markers");
+                  map.setZoom(2).setCenter([0, 0]);
+                  if (map.getLayer("markers")) {
+                    map.removeLayer("markers");
+                    map.removeSource("markersSource");
+                  }
 
                   if (data.records.length == 0) {
                     break;
                   }
 
-                  var markers = mapbox.markers.layer().named("markers");
-                  mapbox.markers.interaction(markers);
-                  map.addLayer(markers);
-                  $.each(data.records, function (_, record) {
-                    markers.add_feature({
-                      geometry: {
-                        coordinates: record.coordinates.reverse(),
-                      },
-                      properties: {
-                        title: record.country,
-                        description: record.addresses.join(", "),
-                      },
-                    });
+                  const markersSource = {
+                    type: "geojson",
+                    data: {
+                      type: "FeatureCollection",
+                      features: data.records.map((record) => ({
+                        type: "Feature",
+                        geometry: {
+                          type: "Point",
+                          coordinates: record.coordinates.reverse(),
+                        },
+                        properties: {
+                          title: record.country,
+                          description: record.addresses.join(", "),
+                        },
+                      })),
+                    },
+                  };
+
+                  map.addSource("markersSource", markersSource);
+
+                  map.addLayer({
+                    id: "markers",
+                    type: "circle",
+                    source: "markersSource",
+                    paint: {
+                      "circle-radius": 6,
+                      "circle-color": "#007cbf",
+                    },
                   });
-                  map.setExtent(markers.extent());
-                  map.zoom(2);
+
+                  const bounds = data.records.reduce((b, record) => {
+                    const coord = record.coordinates;
+                    return b.extend(coord);
+                  }, new mapboxgl.LngLatBounds());
+
+                  map.fitBounds(bounds, { maxZoom: 2 });
+                  map.resize();
                   break;
 
                 case "pre":
@@ -369,6 +397,8 @@ $(function () {
             .filter("#" + type)
             .show();
           $("#results").show().siblings().hide();
+
+          map.resize();
           break;
       }
 
