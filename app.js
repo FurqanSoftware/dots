@@ -26,7 +26,7 @@ app.use(
 
 app.use(express.static(path.join(process.cwd(), "public")));
 
-app.get("/*any", (req, res) => {
+app.get("*any", (req, res) => {
   if (req.path === "/" && req.query.addr) {
     res.redirect(`/${req.query.addr}`);
     return;
