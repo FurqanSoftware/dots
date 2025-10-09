@@ -16,7 +16,8 @@ _.extend(app.locals, _.pick(process.env, [
 
 app.use((require('morgan'))())
 
-app.use((require('body-parser'))())
+app.use(express.json())
+app.use(express.urlencoded())
 
 app.use(stylus.middleware({
   src: path.join(__dirname, 'public'),
@@ -26,7 +27,7 @@ app.use(stylus.middleware({
 app.use(express.static(path.join(__dirname, 'public')))
 
 
-app.route('/*').
+app.route('/*any').
 get((req, res) => {
   if (req.path == '/' && req.query.addr) {
     res.redirect(`/${req.query.addr}`)

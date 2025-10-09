@@ -10,14 +10,14 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "^1.6.5",
-    "express": "^4.17.3",
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
     "maxmind-native": "^0.1.2",
-    "morgan": "^1.2.3",
+    "morgan": "^1.10.1",
     "native-dns": "^0.7.0",
-    "pug": "^3.0.2",
-    "stylus": "^0.54.7",
-    "underscore": "^1.10.2",
-    "whois": "^2.13.6"
+    "pug": "^3.0.3",
+    "stylus": "^0.64.0",
+    "underscore": "^1.13.7",
+    "whois": "^2.15.0"
   }
 }
