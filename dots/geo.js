@@ -1,10 +1,10 @@
-const dns = require("./dns");
-const maxmind = require("maxmind-native");
-const net = require("net");
+import { lookup as dnsLookup } from "./dns.js";
+import maxmind from "maxmind-native";
+import net from "net";
 
-const mgeoip = maxmind.GeoIP();
+const geoip = maxmind.GeoIP();
 
-GC_COUNTRY = {
+const GC_COUNTRY = {
   AP: [49.8, 105.8],
   EU: [53, 9],
   AD: [42.5, 1.6],
@@ -259,50 +259,29 @@ GC_COUNTRY = {
   MF: [18, 63],
 };
 
-exports.locate = locate = (addr, done) => {
+export async function locate(addr) {
   if (!net.isIP(addr)) {
-    // addr might be a domain name, geolocate its a-records
-    dns.lookup("a", addr, (err, others) => {
-      if (err) {
-        done(err);
-        return;
-      }
-
-      if (others.length == 0) {
-        done(null, []);
-        return;
-      }
-
-      // XXX(hjr265): We are not locating all the A records.
-      locate(others[0].address, (err, records) => {
-        if (err) {
-          done(err);
-          return;
-        }
-
-        done(null, records);
-      });
-    });
-    return;
+    // addr might be a domain name; geolocate its A-records
+    try {
+      const others = await dnsLookup("a", addr);
+      if (others.length === 0) return [];
+      return locate(others[0].address);
+    } catch (err) {
+      throw err; // Propagate error
+    }
   }
 
-  const code = mgeoip.getCountry(addr, "code");
-  if (!code) {
-    done(null, []);
-    return;
-  }
+  const code = geoip.getCountry(addr, "code");
+  if (!code) return [];
 
   const coordinates = GC_COUNTRY[code];
-  if (!coordinates) {
-    done(null, []);
-    return;
-  }
+  if (!coordinates) return [];
 
-  done(null, [
+  return [
     {
       address: addr,
       coordinates,
-      country: mgeoip.getCountry(addr),
+      country: geoip.getCountry(addr),
     },
-  ]);
-};
+  ];
+}

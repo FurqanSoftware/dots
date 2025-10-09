@@ -1,12 +1,14 @@
-const whois = require("whois");
+import whois from "whois";
 
-exports.lookup = (addr, done) => {
-  whois.lookup(addr, { follow: 1, timeout: 5000 }, (err, data) => {
-    if (err) {
-      done(err);
-      return;
-    }
+export async function lookup(addr) {
+  return new Promise((resolve, reject) => {
+    whois.lookup(addr, { follow: 1, timeout: 5000 }, (err, data) => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
-    done(null, [{ data: data }]);
+      resolve([{ data: data }]);
+    });
   });
-};
+}

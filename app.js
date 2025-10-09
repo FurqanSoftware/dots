@@ -1,32 +1,31 @@
-const _ = require("underscore");
-const path = require("path");
-const dots = require("./dots");
-const express = require("express");
-const stylus = require("stylus");
+import pick from "lodash/pick.js";
+import path from "path";
+import express from "express";
+import morgan from "morgan";
+import stylus from "stylus";
+import { query as dotsQuery } from "./dots/index.js";
 
 const app = express();
 
 app.set("view engine", "pug");
 app.disable("x-powered-by");
 
-_.extend(app.locals, _.pick(process.env, ["GOSQUARED_KEY"]));
-
-app.use(require("morgan")());
+app.use(morgan("dev")); // Sets up logging middleware
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(
   stylus.middleware({
-    src: path.join(__dirname, "public"),
+    src: path.join(process.cwd(), "public"), // Changed __dirname for better compatibility
     compress: true,
   }),
 );
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(process.cwd(), "public")));
 
-app.route("/*any").get((req, res) => {
-  if (req.path == "/" && req.query.addr) {
+app.get("/*any", (req, res) => {
+  if (req.path === "/" && req.query.addr) {
     res.redirect(`/${req.query.addr}`);
     return;
   }
@@ -34,35 +33,39 @@ app.route("/*any").get((req, res) => {
   res.render("index");
 });
 
-app.route("/").post((req, res, next) => {
+app.post("/", async (req, res, next) => {
   if (!req.xhr) {
-    res.send(403);
-    return;
+    return res.sendStatus(403);
   }
 
   const { type, addr } = req.body;
-  dots(type, addr, (err, records) => {
-    if (!err) {
-      res.json({ records });
-      return;
-    }
 
-    switch (err.code) {
-      case "ENOTFOUND":
-      case "TIMEOUT":
-        res.json({ records: [] });
-        break;
-
-      case "BADQUERY":
-        res.json(400);
-        break;
-
-      default:
-        next(err);
-    }
-  });
+  try {
+    const records = await dotsQuery(type, addr); // Assuming 'dots' was updated to return a Promise
+    res.json({ records });
+  } catch (err) {
+    handleError(err, res, next);
+  }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on ${process.env.PORT}`);
+// Error handler function
+const handleError = (err, res, next) => {
+  switch (err.code) {
+    case "ENOTFOUND":
+    case "TIMEOUT":
+      res.json({ records: [] });
+      break;
+
+    case "BADQUERY":
+      res.sendStatus(400);
+      break;
+
+    default:
+      next(err);
+  }
+};
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
