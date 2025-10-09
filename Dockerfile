@@ -1,1 +1,12 @@
-FROM cardboard/node:14.16
+FROM node:24.8
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["npm", "start"]
