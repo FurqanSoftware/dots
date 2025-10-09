@@ -15,8 +15,8 @@ exports.lookup = (type, addr, done) => {
     timeout: 5000
   })
 
-  const timedout = false
-  const errored = false
+  let timedout = false
+  let errored = false
 
   req.on('timeout', () => {
     timedout = true
