@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width,initial-scale=1')
     title Dots by Furqan Software
-    
+
     link(rel='icon', href='/favicon.png')
     link(rel='manifest', href='/dots.webmanifest')
 
@@ -19,7 +19,7 @@ html(lang='en')
     script(src='/assets/jquery.history.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js')
-    
+
     script(type='text/javascript')
       | mapboxgl.accessToken = '#{MAPBOX_TOKEN}'
 
@@ -36,8 +36,8 @@ html(lang='en')
           div.col-md-3
             a.logo(href='/')
               h1 Dots
-            p.credit  By 
-              | 
+            p.credit  By
+              |
               a(href='https://furqansoftware.com') Furqan Software
 
           div.col-md-9
@@ -46,7 +46,7 @@ html(lang='en')
                 div.form-group
                   div.col-md-6
                     div.input-group
-                      input.form-control(type='text', name='addr', data-toggle='tooltip', title='Enter a domain name or IP address, e.g. toph.co or 172.104.160.52', autocomplete='off')
+                      input.form-control(type='text', name='addr', data-toggle='tooltip', title='Enter a domain name or IP address, e.g. toph.co or 172.104.40.125', autocomplete='off')
                       span.input-group-btn
                         button.btn.btn-primary
                           i(data-feather='chevron-right', style='float: left;')
@@ -54,7 +54,7 @@ html(lang='en')
       div#main
         section#home
 
-        section#results 
+        section#results
           ul.nav.nav-pills
             li.a
               a A
