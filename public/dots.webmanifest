@@ -1,0 +1,56 @@
+{
+  "name": "Dots",
+  "short_name": "Dots",
+  "description": "A simple networking toolkit",
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#0099e5",
+  "background_color": "white",
+  "orientation": "any",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/appicon_180p.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/appicon_192p.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/appicon_192p.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose":"maskable"
+    },
+    {
+      "src": "/appicon_256p.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/appicon_256p.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose":"maskable"
+    },
+    {
+      "src": "/appicon_512p.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/appicon_512p.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose":"maskable"
+    }
+  ]
+}
