@@ -9,3 +9,5 @@ config.json
 .env*
 
 dots.tar.gz
+
+/GeoIP2-Country-Test.mmdb

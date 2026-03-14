@@ -1,8 +1,12 @@
 import { lookup as dnsLookup } from "./dns.js";
-import maxmind from "maxmind-native";
+import maxmind from "maxmind";
 import net from "net";
 
-const geoip = maxmind.GeoIP();
+if (!process.env.GEOIP_DB) {
+  throw new Error("GEOIP_DB environment variable is required (path to a GeoLite2-Country.mmdb file)");
+}
+
+const geoip = await maxmind.open(process.env.GEOIP_DB);
 
 const GC_COUNTRY = {
   AP: [49.8, 105.8],
@@ -271,9 +275,10 @@ export async function locate(addr) {
     }
   }
 
-  const code = geoip.getCountry(addr, "code");
-  if (!code) return [];
+  const result = geoip.get(addr);
+  if (!result || !result.country) return [];
 
+  const code = result.country.iso_code;
   const coordinates = GC_COUNTRY[code];
   if (!coordinates) return [];
 
@@ -281,7 +286,7 @@ export async function locate(addr) {
     {
       address: addr,
       coordinates,
-      country: geoip.getCountry(addr),
+      country: result.country.names.en,
     },
   ];
 }
