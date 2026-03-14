@@ -1,6 +1,10 @@
 import sample from "lodash/sample.js";
 import dns from "native-dns";
 
+if (!process.env.NAMESERVERS) {
+  throw new Error("NAMESERVERS environment variable is required (e.g. NAMESERVERS=8.8.8.8,8.8.4.4)");
+}
+
 const SERVERS = process.env.NAMESERVERS.split(",");
 
 export async function lookup(type, addr) {
