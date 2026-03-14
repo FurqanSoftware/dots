@@ -33,6 +33,10 @@ app.use(
 
 app.use(express.static(path.join(process.cwd(), "public")));
 
+app.get("/healthz", (req, res) => {
+  res.sendStatus(200);
+});
+
 app.get("*any", (req, res) => {
   if (req.path === "/" && req.query.addr) {
     res.redirect(`/${req.query.addr}`);

@@ -32,7 +32,10 @@ primary_region = "sin"
     handlers = [ "tls", "http" ]
     port = 443
 
-    [[services.tcp_checks]]
-    grace_period = "1s"
+    [[services.http_checks]]
+    grace_period = "5s"
     interval = "15s"
+    method = "get"
+    path = "/healthz"
+    protocol = "http"
     timeout = "2s"
