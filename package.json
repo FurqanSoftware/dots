@@ -15,7 +15,6 @@
     "lodash": "^4.17.21",
     "maxmind-native": "^0.1.2",
     "morgan": "^1.10.1",
-    "native-dns": "^0.7.0",
     "pug": "^3.0.3",
     "stylus": "^0.64.0",
     "underscore": "^1.13.7",

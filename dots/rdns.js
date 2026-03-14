@@ -1,15 +1,6 @@
-import dns from "native-dns";
+import dns from "node:dns";
 
 export async function lookup(addr) {
-  return new Promise((resolve, reject) => {
-    dns.reverse(addr, (err, addresses) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      const results = addresses.map((address) => ({ address }));
-      resolve(results);
-    });
-  });
+  const addresses = await dns.promises.reverse(addr);
+  return addresses.map((address) => ({ address }));
 }

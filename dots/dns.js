@@ -1,5 +1,4 @@
-import sample from "lodash/sample.js";
-import dns from "native-dns";
+import dns from "node:dns";
 
 if (!process.env.NAMESERVERS) {
   throw new Error("NAMESERVERS environment variable is required (e.g. NAMESERVERS=8.8.8.8,8.8.4.4)");
@@ -7,48 +6,69 @@ if (!process.env.NAMESERVERS) {
 
 const SERVERS = process.env.NAMESERVERS.split(",");
 
+function createResolver() {
+  const resolver = new dns.promises.Resolver();
+  resolver.setServers(SERVERS);
+  return resolver;
+}
+
 export async function lookup(type, addr) {
-  return new Promise((resolve, reject) => {
-    const req = new dns.Request({
-      question: new dns.Question({
-        type,
-        name: addr,
-      }),
-      server: sample(SERVERS),
-      timeout: 5000,
-    });
+  const resolver = createResolver();
 
-    let timedout = false;
-    let errored = false;
+  switch (type) {
+    case "a":
+      return resolver.resolve4(addr, { ttl: true });
 
-    req.on("timeout", () => {
-      timedout = true;
-      req.cancel();
-      reject(dns.TIMEOUT);
-    });
+    case "aaaa":
+      return resolver.resolve6(addr, { ttl: true });
 
-    req.on("end", () => {
-      if (errored || timedout) return;
-      resolve(records);
-    });
+    case "cname": {
+      const records = await resolver.resolveCname(addr);
+      return records.map((data) => ({ data }));
+    }
 
-    const records = [];
-    req.on("message", (err, message) => {
-      if (err) {
-        errored = true;
-        req.cancel();
-        reject(err);
-        return;
-      }
+    case "mx":
+      return resolver.resolveMx(addr);
 
-      for (const record of message.answer) {
-        delete record.name; // using dot notation for better readability
-        delete record.type;
-        delete record.class;
-        records.push(record);
-      }
-    });
+    case "naptr":
+      return resolver.resolveNaptr(addr);
 
-    req.send();
-  });
+    case "ns": {
+      const records = await resolver.resolveNs(addr);
+      return records.map((data) => ({ data }));
+    }
+
+    case "ptr": {
+      const records = await resolver.resolvePtr(addr);
+      return records.map((data) => ({ data }));
+    }
+
+    case "soa": {
+      const record = await resolver.resolveSoa(addr);
+      return [{
+        primary: record.nsname,
+        admin: record.hostmaster,
+        serial: record.serial,
+        refresh: record.refresh,
+        retry: record.retry,
+        expiration: record.expire,
+        minimum: record.minttl,
+      }];
+    }
+
+    case "srv": {
+      const records = await resolver.resolveSrv(addr);
+      return records.map((r) => ({
+        priority: r.priority,
+        weight: r.weight,
+        port: r.port,
+        target: r.name,
+      }));
+    }
+
+    case "txt": {
+      const records = await resolver.resolveTxt(addr);
+      return records.map((chunks) => ({ data: chunks.join("") }));
+    }
+  }
 }
