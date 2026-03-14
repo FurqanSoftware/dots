@@ -1,9 +1,17 @@
 import pick from "lodash/pick.js";
+import net from "net";
 import path from "path";
 import express from "express";
 import morgan from "morgan";
 import stylus from "stylus";
 import { query as dotsQuery } from "./dots/index.js";
+
+const VALID_TYPES = new Set([
+  "a", "aaaa", "cname", "mx", "naptr", "ns", "ptr", "soa", "srv", "txt",
+  "rdns", "whois", "geo",
+]);
+
+const DOMAIN_RE = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z]{2,}$/;
 
 const app = express();
 
@@ -42,8 +50,16 @@ app.post("/", async (req, res, next) => {
 
   const { type, addr } = req.body;
 
+  if (typeof type !== "string" || !VALID_TYPES.has(type)) {
+    return res.sendStatus(400);
+  }
+
+  if (typeof addr !== "string" || addr.length > 253 || (!net.isIP(addr) && !DOMAIN_RE.test(addr))) {
+    return res.sendStatus(400);
+  }
+
   try {
-    const records = await dotsQuery(type, addr); // Assuming 'dots' was updated to return a Promise
+    const records = await dotsQuery(type, addr);
     res.json({ records });
   } catch (err) {
     handleError(err, res, next);
