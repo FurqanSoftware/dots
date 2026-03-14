@@ -1,4 +1,3 @@
-import pick from "lodash/pick.js";
 import net from "net";
 import path from "path";
 import express from "express";
@@ -18,7 +17,7 @@ const app = express();
 app.set("view engine", "pug");
 app.disable("x-powered-by");
 
-Object.assign(app.locals, pick(process.env, ["MAPBOX_TOKEN"]));
+app.locals.MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 
 app.use(morgan("dev")); // Sets up logging middleware
 

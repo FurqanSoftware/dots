@@ -10,14 +10,11 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "^2.2.0",
     "express": "^5.1.0",
-    "lodash": "^4.17.21",
     "maxmind": "^4.3.0",
     "morgan": "^1.10.1",
     "pug": "^3.0.3",
     "stylus": "^0.64.0",
-    "underscore": "^1.13.7",
     "whois": "^2.15.0"
   },
   "engines": {
