@@ -10,7 +10,7 @@ const VALID_TYPES = new Set([
   "rdns", "whois", "geo",
 ]);
 
-const DOMAIN_RE = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z]{2,}$/;
+const DOMAIN_RE = /^(?:[_a-zA-Z0-9](?:[_a-zA-Z0-9-]{0,61}[_a-zA-Z0-9])?\.)*[a-zA-Z]{2,}$/;
 
 const app = express();
 
