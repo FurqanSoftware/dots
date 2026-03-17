@@ -7,7 +7,7 @@ primary_region = "sin"
 
 [env]
   PORT = "8080"
-  NAMESERVERS = "8.8.8.8,8.8.4.4"
+  NAMESERVERS = "8.8.8.8,8.8.4.4,1.1.1.1,1.0.0.1,9.9.9.10,149.112.112.10"
   MAPBOX_TOKEN = "pk.eyJ1IjoiZnVycWFuc29mdHdhcmUiLCJhIjoiY21naXpmaWd5MGMxajJyc2gxZjF4NzhtbyJ9.WDuI4_L5CiqgOgNBQjtPpw"
 
 [experimental]
