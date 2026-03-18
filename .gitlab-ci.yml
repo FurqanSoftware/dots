@@ -11,5 +11,4 @@ deploy:
     - curl -L https://fly.io/install.sh | sh
     - export PATH="$HOME/.fly/bin:$PATH"
   script:
-    - echo "FLY_API_TOKEN length:${#FLY_API_TOKEN}"
     - fly deploy --build-arg MAXMIND_LICENSE_KEY=$MAXMIND_LICENSE_KEY
