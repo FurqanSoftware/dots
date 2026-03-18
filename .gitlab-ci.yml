@@ -1,9 +1,12 @@
 stages:
   - deploy
 
-deploy:
+deploy production:
   stage: deploy
   image: alpine:latest
+  environment:
+    name: production
+    url: https://dots.fsapp.co/
   only:
     - tags
   before_script:
