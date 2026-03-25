@@ -1,5 +1,24 @@
 $(function () {
   (function (window, $) {
+    function makeCopyBtn(getText) {
+      var $btn = $('<button class="btn-copy" title="Copy to clipboard"></button>');
+      $btn.html('<i data-feather="copy"></i>');
+      $btn.on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var text = typeof getText === 'function' ? getText() : getText;
+        navigator.clipboard.writeText(text).then(function () {
+          $btn.html('<i data-feather="check"></i>');
+          feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
+          setTimeout(function () {
+            $btn.html('<i data-feather="copy"></i>');
+            feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
+          }, 1500);
+        });
+      });
+      return $btn;
+    }
+
     var QUERIES = {
       a: {
         types: ["DOMAIN"],
@@ -293,27 +312,34 @@ $(function () {
                             };
                           }
 
+                          var $td, val = record[field.name];
                           switch (field.type) {
                             case "addr":
-                              return $("<td></td>").append(
+                              $td = $("<td></td>").append(
                                 $("<a></a>")
                                   .attr(
                                     "href",
-                                    "/" + record[field.name].toLowerCase(),
+                                    "/" + val.toLowerCase(),
                                   )
-                                  .text(record[field.name]),
-                              )[0];
+                                  .text(val),
+                              );
+                              break;
 
                             case "time":
-                              return $("<td></td>").text(record[field.name])[0];
+                              $td = $("<td></td>").text(val);
+                              break;
 
                             default:
-                              return $("<td></td>").text(record[field.name])[0];
+                              $td = $("<td></td>").text(val);
+                              break;
                           }
+                          $td.append(makeCopyBtn(String(val)));
+                          return $td[0];
                         }),
                       ),
                     );
                   });
+                  feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
                   break;
 
                 case "map":
@@ -384,10 +410,18 @@ $(function () {
                   break;
 
                 case "pre":
-                  $("#" + type + " pre").html("");
+                  var $pre = $("#" + type + " pre");
+                  $pre.html("");
+                  $("#" + type + " .btn-copy-block").remove();
+                  var fullText = "";
                   $.each(data.records, function (_, record) {
-                    $("#" + type + " pre").text(record.data);
+                    fullText += record.data;
                   });
+                  $pre.text(fullText);
+                  var $copyBlock = makeCopyBtn(function () { return $pre.text(); });
+                  $copyBlock.addClass("btn-copy-block");
+                  $pre.parent().css("position", "relative").append($copyBlock);
+                  feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
                   break;
               }
             },
