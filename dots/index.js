@@ -1,6 +1,7 @@
 import { lookup as dnsLookup } from "./dns.js";
 import { locate as geoLocate } from "./geo.js";
 import { lookup as rdnsLookup } from "./rdns.js";
+import { lookup as tlsLookup } from "./tls.js";
 import { lookup as whoisLookup } from "./whois.js";
 
 export async function query(kind, addr) {
@@ -23,6 +24,9 @@ export async function query(kind, addr) {
 
       case "geo":
         return await geoLocate(addr);
+
+      case "tls":
+        return await tlsLookup(addr);
 
       case "whois":
         return await whoisLookup(addr);

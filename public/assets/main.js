@@ -159,6 +159,18 @@ $(function () {
           },
         ],
       },
+      tls: {
+        types: ["DOMAIN", "IP"],
+        output: "kvtable",
+        fields: [
+          { name: "subject", label: "Subject" },
+          { name: "issuer", label: "Issuer" },
+          { name: "validFrom", label: "Valid From" },
+          { name: "validTo", label: "Valid To" },
+          { name: "serialNumber", label: "Serial Number" },
+          { name: "fingerprint", label: "Fingerprint" },
+        ],
+      },
       rdns: {
         types: ["IP"],
         output: "table",
@@ -274,6 +286,7 @@ $(function () {
 
           switch (QUERIES[type].output) {
             case "table":
+            case "kvtable":
               $("#" + type + " table tbody").empty();
               break;
 
@@ -339,6 +352,24 @@ $(function () {
                       ),
                     );
                   });
+                  feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
+                  break;
+
+                case "kvtable":
+                  $("#" + type + " table tbody").empty();
+                  if (data.records.length > 0) {
+                    var record = data.records[0];
+                    $.each(QUERIES[type].fields, function (_, field) {
+                      var val = record[field.name];
+                      var $td = $("<td></td>").text(val);
+                      $td.append(makeCopyBtn(String(val)));
+                      $("#" + type + " table tbody").append(
+                        $("<tr></tr>")
+                          .append($("<th></th>").text(field.label))
+                          .append($td),
+                      );
+                    });
+                  }
                   feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
                   break;
 
