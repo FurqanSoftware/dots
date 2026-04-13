@@ -171,6 +171,17 @@ $(function () {
           { name: "fingerprint", label: "Fingerprint" },
         ],
       },
+      http: {
+        types: ["DOMAIN", "IP"],
+        output: "kvpre",
+        fields: [
+          { name: "url", label: "URL" },
+          { name: "status", label: "Status" },
+          { name: "server", label: "Server" },
+          { name: "tls", label: "TLS" },
+        ],
+        preField: "rawHeaders",
+      },
       rdns: {
         types: ["IP"],
         output: "table",
@@ -290,6 +301,11 @@ $(function () {
               $("#" + type + " table tbody").empty();
               break;
 
+            case "kvpre":
+              $("#" + type + " table tbody").empty();
+              $("#" + type + " pre").html("");
+              break;
+
             case "map":
               map.setZoom(2).setCenter([0, 0]);
               if (map.getLayer("markers")) {
@@ -369,6 +385,32 @@ $(function () {
                           .append($td),
                       );
                     });
+                  }
+                  feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
+                  break;
+
+                case "kvpre":
+                  $("#" + type + " table tbody").empty();
+                  var $pre = $("#" + type + " pre");
+                  $pre.html("");
+                  $("#" + type + " .btn-copy-block").remove();
+                  if (data.records.length > 0) {
+                    var record = data.records[0];
+                    $.each(QUERIES[type].fields, function (_, field) {
+                      var val = record[field.name];
+                      var $td = $("<td></td>").text(val);
+                      $td.append(makeCopyBtn(String(val)));
+                      $("#" + type + " table tbody").append(
+                        $("<tr></tr>")
+                          .append($("<th></th>").text(field.label))
+                          .append($td),
+                      );
+                    });
+                    var preText = record[QUERIES[type].preField] || "";
+                    $pre.text(preText);
+                    var $copyBlock = makeCopyBtn(function () { return $pre.text(); });
+                    $copyBlock.addClass("btn-copy-block");
+                    $pre.parent().css("position", "relative").append($copyBlock);
                   }
                   feather.replace({ width: 14, height: 14, 'stroke-width': 2 });
                   break;

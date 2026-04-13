@@ -7,7 +7,7 @@ import { query as dotsQuery } from "./dots/index.js";
 
 const VALID_TYPES = new Set([
   "a", "aaaa", "cname", "mx", "naptr", "ns", "ptr", "soa", "srv", "txt",
-  "rdns", "tls", "whois", "geo",
+  "rdns", "tls", "http", "whois", "geo",
 ]);
 
 const DOMAIN_RE = /^(?:[_a-zA-Z0-9](?:[_a-zA-Z0-9-]{0,61}[_a-zA-Z0-9])?\.)*[a-zA-Z]{2,}$/;
