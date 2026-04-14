@@ -294,6 +294,7 @@ $(function () {
           }
 
           $("#" + type).addClass("loading");
+          $("#" + type + " > .alert").remove();
 
           switch (QUERIES[type].output) {
             case "table":
@@ -498,7 +499,14 @@ $(function () {
                   break;
               }
             },
-          );
+          ).fail(function (xhr) {
+            $("#" + type).removeClass("loading");
+            if (xhr.status === 429) {
+              $("#" + type).prepend(
+                $('<div class="alert alert-danger"></div>').text("Too many requests. Please try again shortly."),
+              );
+            }
+          });
 
           $("#results section")
             .hide()
