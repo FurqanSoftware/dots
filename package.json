@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "express": "^5.1.0",
+    "express-rate-limit": "^8.3.2",
     "maxmind": "^4.3.0",
     "morgan": "^1.10.1",
     "pug": "^3.0.3",

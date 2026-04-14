@@ -1,6 +1,7 @@
 import net from "net";
 import path from "path";
 import express from "express";
+import rateLimit from "express-rate-limit";
 import morgan from "morgan";
 import stylus from "stylus";
 import { query as dotsQuery } from "./dots/index.js";
@@ -46,7 +47,14 @@ app.get("*any", (req, res) => {
   res.render("index");
 });
 
-app.post("/", async (req, res, next) => {
+const queryLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.post("/", queryLimiter, async (req, res, next) => {
   if (!req.xhr) {
     return res.sendStatus(403);
   }
