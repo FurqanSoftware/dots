@@ -1,0 +1,204 @@
+:root {
+    --pico-primary: #0099e5;
+    --pico-primary-hover: #007bb8;
+    --pico-font-family: "Space Mono", monospace;
+    --pico-font-family-monospace: "Space Mono", monospace;
+}
+
+body {
+    max-width: 990px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+}
+
+a {
+    color: #0099e5;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: #007bb8;
+}
+
+/* Header */
+#head {
+    margin: 2rem 0 0;
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .header-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.header-brand a {
+    color: #444;
+    text-decoration: none;
+}
+
+.logo {
+    position: relative;
+    left: -4px;
+}
+
+.logo h1 {
+    font-family: "Major Mono Display", monospace;
+    margin: 0;
+}
+
+.credit {
+    color: #888;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.header-prompt {
+    margin: 0;
+}
+
+.input-row {
+    display: flex;
+    gap: 0;
+}
+
+.input-row input {
+    flex: 1;
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+
+.input-row button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-bottom: 0;
+    width: auto;
+    flex-shrink: 0;
+    aspect-ratio: 1;
+}
+
+/* Main */
+#main {
+    margin: 2.5rem 0 0;
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+}
+
+.tab-nav a {
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    color: #444;
+    text-decoration: none;
+    transition: background-color 0.25s ease-in-out;
+    font-size: 0.85rem;
+}
+
+.tab-nav a:hover,
+.tab-nav a:focus {
+    background-color: rgba(0, 153, 229, 0.15);
+    color: #444;
+}
+
+.tab-nav a.active {
+    background-color: #0099e5;
+    color: #fff;
+}
+
+/* Tables */
+table {
+    width: 100%;
+}
+
+/* Loading */
+.loading-indicator {
+    min-height: 100px;
+}
+
+/* Alerts */
+[role="alert"] {
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 1rem;
+}
+
+/* Map */
+.map-container {
+    width: 100%;
+    height: 425px;
+}
+
+/* WHOIS / Pre blocks */
+#whois-pre {
+    height: 425px;
+    overflow: auto;
+    color: #080808;
+}
+
+/* Copy Buttons */
+.btn-copy {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+    margin-left: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    vertical-align: middle;
+    color: #888;
+    width: auto;
+}
+
+.btn-copy:hover {
+    color: #0099e5;
+}
+
+td:hover .btn-copy,
+td:focus-within .btn-copy {
+    opacity: 1;
+}
+
+.btn-copy-block {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    opacity: 0.5;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 4px 6px;
+    line-height: 1em;
+    width: auto;
+}
+
+.btn-copy-block:hover {
+    opacity: 1;
+    color: #0099e5;
+}
+
+/* GitHub Fork Ribbon */
+.github-fork-ribbon::before {
+    background-color: black;
+}
+
+.github-fork-ribbon::after {
+    font-family: "Space Mono", monospace;
+    font-weight: normal;
+}

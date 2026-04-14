@@ -7,18 +7,26 @@
   "author": "Mahmud Ridwan <m@hjr265.me>",
   "repository": "git://github.com/hjr265/dots",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
     "start": "node app.js"
   },
   "dependencies": {
+    "@picocss/pico": "^2.1.1",
     "express": "^5.1.0",
     "express-rate-limit": "^8.3.2",
+    "feather-icons": "^4.29.2",
     "maxmind": "^4.3.0",
     "morgan": "^1.10.1",
-    "pug": "^3.0.3",
-    "stylus": "^0.64.0",
+    "preact": "^10.29.1",
+    "preact-router": "^4.1.2",
     "whois": "^2.15.0"
   },
   "engines": {
     "node": ">=14.x"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.5",
+    "vite": "^8.0.8"
   }
 }

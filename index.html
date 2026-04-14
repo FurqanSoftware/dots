@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dots by Furqan Software</title>
+
+    <link rel="icon" href="/favicon.png" />
+    <link rel="manifest" href="/dots.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Major+Mono+Display:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+    />
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+    <script>
+      mapboxgl.accessToken = "__MAPBOX_TOKEN__";
+    </script>
+
+    <script
+      data-goatcounter="https://goatcounter.dots.fsapp.co/count"
+      src="https://goatcounter.dots.fsapp.co/count.js"
+      async
+    ></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

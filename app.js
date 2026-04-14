@@ -1,9 +1,9 @@
+import fs from "fs";
 import net from "net";
 import path from "path";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import morgan from "morgan";
-import stylus from "stylus";
 import { query as dotsQuery } from "./dots/index.js";
 
 const VALID_TYPES = new Set([
@@ -15,36 +15,18 @@ const DOMAIN_RE = /^(?:[_a-zA-Z0-9](?:[_a-zA-Z0-9-]{0,61}[_a-zA-Z0-9])?\.)*[a-zA
 
 const app = express();
 
-app.set("view engine", "pug");
 app.disable("x-powered-by");
 
-app.locals.MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
-
-app.use(morgan("dev")); // Sets up logging middleware
+app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  stylus.middleware({
-    src: path.join(process.cwd(), "public"), // Changed __dirname for better compatibility
-    compress: true,
-  }),
-);
-
+app.use(express.static(path.join(process.cwd(), "dist")));
 app.use(express.static(path.join(process.cwd(), "public")));
 
 app.get("/healthz", (req, res) => {
   res.sendStatus(200);
-});
-
-app.get("*any", (req, res) => {
-  if (req.path === "/" && req.query.addr) {
-    res.redirect(`/${req.query.addr}`);
-    return;
-  }
-
-  res.render("index");
 });
 
 const queryLimiter = rateLimit({
@@ -55,10 +37,6 @@ const queryLimiter = rateLimit({
 });
 
 app.post("/", queryLimiter, async (req, res, next) => {
-  if (!req.xhr) {
-    return res.sendStatus(403);
-  }
-
   const { type, addr } = req.body;
 
   if (typeof type !== "string" || !VALID_TYPES.has(type)) {
@@ -77,7 +55,26 @@ app.post("/", queryLimiter, async (req, res, next) => {
   }
 });
 
-// Error handler function
+const distIndexPath = path.join(process.cwd(), "dist", "index.html");
+let indexHtml = null;
+try {
+  indexHtml = fs.readFileSync(distIndexPath, "utf-8");
+  indexHtml = indexHtml.replace("__MAPBOX_TOKEN__", process.env.MAPBOX_TOKEN || "");
+} catch {}
+
+app.get("*any", (req, res) => {
+  if (req.path === "/" && req.query.addr) {
+    res.redirect(`/${req.query.addr}`);
+    return;
+  }
+
+  if (!indexHtml) {
+    return res.status(503).send("Run 'npm run build' first, or use 'npm run dev' for development.");
+  }
+
+  res.type("html").send(indexHtml);
+});
+
 const handleError = (err, res, next) => {
   switch (err.code) {
     case "ENOTFOUND":
