@@ -7,7 +7,7 @@ export function FeatherIcon({ name, size = 14, strokeWidth = 2 }) {
         display: "inline-flex",
         verticalAlign: "middle",
         position: "relative",
-        top: "-5px",
+        top: "-4px",
       }}
       dangerouslySetInnerHTML={{
         __html: feather.icons[name].toSvg({
