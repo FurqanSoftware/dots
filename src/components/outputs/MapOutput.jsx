@@ -91,7 +91,10 @@ export function MapOutput({ records }) {
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    requestAnimationFrame(() => map.resize());
+    const id = requestAnimationFrame(() => {
+      if (mapRef.current) map.resize();
+    });
+    return () => cancelAnimationFrame(id);
   });
 
   return <div class="map-container" ref={containerRef} />;
