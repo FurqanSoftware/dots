@@ -23,7 +23,7 @@ export function CopyButton({ getText, block }) {
       title="Copy to clipboard"
       onClick={handleClick}
     >
-      <FeatherIcon name={copied ? "check" : "copy"} />
+      <FeatherIcon name={copied ? "check" : "copy"} size={18} />
     </button>
   );
 }
