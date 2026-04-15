@@ -67,11 +67,11 @@ a:focus {
 .input-row {
     display: flex;
     gap: 0;
+    align-items: stretch;
 }
 
 .input-row input {
     flex: 1;
-    flex-grow: 1;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 0;
@@ -83,7 +83,7 @@ a:focus {
     margin-bottom: 0;
     width: auto;
     flex-shrink: 0;
-    aspect-ratio: 1;
+    padding: 0 1rem;
 }
 
 /* Main */
