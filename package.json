@@ -16,6 +16,7 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.3.2",
     "feather-icons": "^4.29.2",
+    "lru-cache": "^11.3.5",
     "maxmind": "^4.3.0",
     "morgan": "^1.10.1",
     "preact": "^10.29.1",
