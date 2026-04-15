@@ -2,6 +2,7 @@ import { useState, useEffect } from "preact/hooks";
 import { QUERIES, DNS_QUERIES, RDNS_QUERIES } from "../../lib/queries";
 import { query as apiQuery } from "../../lib/api";
 import { TableOutput } from "./TableOutput";
+import { KVTableOutput } from "./KVTableOutput";
 
 export function DnsOutput({ addr, addrKind }) {
   const [results, setResults] = useState({});
@@ -44,6 +45,8 @@ export function DnsOutput({ addr, addrKind }) {
               <div class="loading-indicator" aria-busy="true" />
             ) : result.records.length === 0 ? (
               <p class="no-records">No records found</p>
+            ) : query.output === "kvtable" ? (
+              <KVTableOutput records={result.records} fields={query.fields} />
             ) : (
               <TableOutput records={result.records} fields={query.fields} />
             )}
