@@ -78,6 +78,7 @@ app.get("*any", (req, res) => {
 const handleError = (err, res, next) => {
   switch (err.code) {
     case "ENOTFOUND":
+    case "ENODATA":
     case "TIMEOUT":
       res.json({ records: [] });
       break;

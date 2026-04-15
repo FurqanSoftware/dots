@@ -1,5 +1,6 @@
 export const QUERIES = {
   a: {
+    label: "A",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -8,6 +9,7 @@ export const QUERIES = {
     ],
   },
   aaaa: {
+    label: "AAAA",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -16,6 +18,7 @@ export const QUERIES = {
     ],
   },
   cname: {
+    label: "CNAME",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -24,6 +27,7 @@ export const QUERIES = {
     ],
   },
   mx: {
+    label: "MX",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -33,6 +37,7 @@ export const QUERIES = {
     ],
   },
   naptr: {
+    label: "NAPTR",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -45,6 +50,7 @@ export const QUERIES = {
     ],
   },
   ns: {
+    label: "NS",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -53,6 +59,7 @@ export const QUERIES = {
     ],
   },
   ptr: {
+    label: "PTR",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -61,6 +68,7 @@ export const QUERIES = {
     ],
   },
   soa: {
+    label: "SOA",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -75,6 +83,7 @@ export const QUERIES = {
     ],
   },
   srv: {
+    label: "SRV",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -86,6 +95,7 @@ export const QUERIES = {
     ],
   },
   txt: {
+    label: "TXT",
     types: ["DOMAIN"],
     output: "table",
     fields: [
@@ -93,7 +103,16 @@ export const QUERIES = {
       { name: "ttl", type: "time" },
     ],
   },
+  rdns: {
+    label: "rDNS",
+    types: ["IP"],
+    output: "table",
+    fields: [
+      { name: "address", type: "addr" },
+    ],
+  },
   tls: {
+    label: "TLS",
     types: ["DOMAIN", "IP"],
     output: "kvtable",
     fields: [
@@ -106,6 +125,7 @@ export const QUERIES = {
     ],
   },
   http: {
+    label: "HTTP",
     types: ["DOMAIN", "IP"],
     output: "kvpre",
     fields: [
@@ -116,37 +136,28 @@ export const QUERIES = {
     ],
     preField: "rawHeaders",
   },
-  rdns: {
-    types: ["IP"],
-    output: "table",
-    fields: [
-      { name: "address", type: "addr" },
-    ],
-  },
   whois: {
+    label: "WHOIS",
     types: ["DOMAIN", "IP"],
     output: "pre",
   },
   geo: {
+    label: "Geo",
     types: ["DOMAIN", "IP"],
     output: "map",
   },
 };
 
-export const QUERY_TABS = [
-  { key: "a", label: "A" },
-  { key: "aaaa", label: "AAAA" },
-  { key: "cname", label: "CNAME" },
-  { key: "mx", label: "MX" },
-  { key: "naptr", label: "NAPTR" },
-  { key: "ns", label: "NS" },
-  { key: "ptr", label: "PTR" },
-  { key: "soa", label: "SOA" },
-  { key: "srv", label: "SRV" },
-  { key: "txt", label: "TXT" },
-  { key: "rdns", label: "rDNS" },
-  { key: "tls", label: "TLS" },
-  { key: "http", label: "HTTP" },
-  { key: "whois", label: "WHOIS" },
-  { key: "geo", label: "Geo" },
+export const DNS_QUERIES = [
+  "a", "aaaa", "cname", "mx", "naptr", "ns", "ptr", "soa", "srv", "txt",
+];
+
+export const RDNS_QUERIES = ["rdns"];
+
+export const TABS = [
+  { key: "dns", label: "DNS", types: ["DOMAIN", "IP"] },
+  { key: "tls", label: "TLS", types: ["DOMAIN", "IP"] },
+  { key: "http", label: "HTTP", types: ["DOMAIN", "IP"] },
+  { key: "whois", label: "WHOIS", types: ["DOMAIN", "IP"] },
+  { key: "geo", label: "Geo", types: ["DOMAIN", "IP"] },
 ];

@@ -1,13 +1,18 @@
 import { QUERIES } from "../lib/queries";
+import { DnsOutput } from "./outputs/DnsOutput";
 import { TableOutput } from "./outputs/TableOutput";
 import { KVTableOutput } from "./outputs/KVTableOutput";
 import { KVPreOutput } from "./outputs/KVPreOutput";
 import { PreOutput } from "./outputs/PreOutput";
 import { MapOutput } from "./outputs/MapOutput";
 
-export function ResultSection({ type, records, loading, error }) {
+export function ResultSection({ type, addr, addrKind, records, loading, error }) {
   if (error) {
     return <div role="alert">{error}</div>;
+  }
+
+  if (type === "dns") {
+    return <DnsOutput addr={addr} addrKind={addrKind} />;
   }
 
   if (loading) {

@@ -95,6 +95,7 @@ a:focus {
 .tab-nav {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 0.25rem;
     margin-bottom: 2rem;
 }
@@ -124,9 +125,26 @@ table {
     width: 100%;
 }
 
+/* DNS Output */
+.dns-record-section {
+    margin-bottom: 2rem;
+}
+
+.dns-record-section h3 {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0 0 0.5rem;
+}
+
+.dns-record-section .no-records {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
 /* Loading */
 .loading-indicator {
-    min-height: 100px;
+    min-height: 50px;
 }
 
 /* Alerts */

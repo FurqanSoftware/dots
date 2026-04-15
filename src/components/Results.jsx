@@ -3,8 +3,10 @@ import { route } from "preact-router";
 import { TabNav } from "./TabNav";
 import { ResultSection } from "./ResultSection";
 import { getAddrKind } from "../lib/address";
-import { QUERIES } from "../lib/queries";
+import { TABS } from "../lib/queries";
 import { query as apiQuery } from "../lib/api";
+
+const TAB_KEYS = new Set(TABS.map((t) => t.key));
 
 export function Results({ addr, type, lastTypeRef }) {
   const [records, setRecords] = useState(null);
@@ -17,15 +19,11 @@ export function Results({ addr, type, lastTypeRef }) {
     return <div role="alert">Invalid address</div>;
   }
 
-  if (!type) {
+  if (!type || !TAB_KEYS.has(type)) {
     const defaultType =
-      lastTypeRef.current &&
-      QUERIES[lastTypeRef.current] &&
-      QUERIES[lastTypeRef.current].types.includes(addrKind)
+      lastTypeRef.current && TAB_KEYS.has(lastTypeRef.current)
         ? lastTypeRef.current
-        : addrKind === "IP"
-          ? "rdns"
-          : "a";
+        : "dns";
     route("/" + addr + "/" + defaultType, true);
     return null;
   }
@@ -33,6 +31,8 @@ export function Results({ addr, type, lastTypeRef }) {
   useEffect(() => {
     lastTypeRef.current = type;
     document.title = "Dots \u2013 " + addr;
+
+    if (type === "dns") return;
 
     let cancelled = false;
     setLoading(true);
@@ -64,6 +64,8 @@ export function Results({ addr, type, lastTypeRef }) {
       <TabNav addr={addr} activeType={type} addrKind={addrKind} />
       <ResultSection
         type={type}
+        addr={addr}
+        addrKind={addrKind}
         records={records}
         loading={loading}
         error={error}
