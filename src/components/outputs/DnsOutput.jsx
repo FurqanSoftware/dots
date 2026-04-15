@@ -38,19 +38,23 @@ export function DnsOutput({ addr, addrKind }) {
         const query = QUERIES[key];
         const result = results[key];
 
+        if (!result) {
+          return (
+            <div key={key} class="loading-indicator" aria-busy="true" />
+          );
+        }
+
+        if (result.records.length === 0) return null;
+
         return (
-          <div key={key} class="dns-record-section">
-            <h3>{query.label}</h3>
-            {!result ? (
-              <div class="loading-indicator" aria-busy="true" />
-            ) : result.records.length === 0 ? (
-              <p class="no-records">No records found</p>
-            ) : query.output === "kvtable" ? (
+          <details key={key} open>
+            <summary>{query.label}</summary>
+            {query.output === "kvtable" ? (
               <KVTableOutput records={result.records} fields={query.fields} />
             ) : (
               <TableOutput records={result.records} fields={query.fields} />
             )}
-          </div>
+          </details>
         );
       })}
     </div>

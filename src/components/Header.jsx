@@ -34,7 +34,7 @@ export function Header({ addr }) {
         </div>
         <div class="header-prompt">
           <form onSubmit={handleSubmit}>
-            <div class="input-row">
+            <div role="group">
               <input
                 ref={inputRef}
                 type="text"

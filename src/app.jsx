@@ -32,14 +32,6 @@ export function App() {
           <Results path="/:addr" lastTypeRef={lastTypeRef} />
         </Router>
       </main>
-      <a
-        class="github-fork-ribbon"
-        href="https://github.com/FurqanSoftware/dots"
-        data-ribbon="Fork me on GitHub"
-        title="Fork me on GitHub"
-      >
-        Fork me on GitHub
-      </a>
     </div>
   );
 }

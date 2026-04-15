@@ -31,7 +31,7 @@ a:focus {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 1rem;
-    align-items: center;
+    align-items: end;
 }
 
 @media (max-width: 768px) {
@@ -63,35 +63,17 @@ a:focus {
 
 .header-prompt {
     margin: 0;
+    align-self: end;
 }
 
-.input-row {
-    display: flex;
-    gap: 0;
-    align-items: stretch;
+.header-prompt form {
+    margin: 0;
 }
 
-.input-row input {
-    flex: 1;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+.header-prompt [role="group"] {
     margin-bottom: 0;
 }
 
-.input-row button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    margin-bottom: 0;
-    width: auto;
-    flex-shrink: 0;
-    padding: 0 1rem;
-    background-color: var(--pico-primary);
-}
-
-.input-row button:hover,
-.input-row button:focus {
-    background-color: var(--pico-primary-hover);
-}
 
 /* Main */
 #main {
@@ -133,17 +115,11 @@ table {
 }
 
 /* DNS Output */
-.dns-record-section {
-    margin-bottom: 2rem;
+.dns-output details {
+    padding-bottom: 1rem;
 }
 
-.dns-record-section h3 {
-    font-size: 0.9rem;
-    color: #888;
-    margin: 0 0 0.5rem;
-}
-
-.dns-record-section .no-records {
+.dns-output .no-records {
     color: #aaa;
     font-size: 0.85rem;
     margin: 0;
@@ -170,7 +146,12 @@ table {
     height: 425px;
 }
 
-/* WHOIS / Pre blocks */
+/* Pre blocks */
+pre {
+    padding: 1rem;
+}
+
+/* WHOIS */
 #whois-pre {
     height: 425px;
     overflow: auto;
@@ -218,12 +199,3 @@ td:focus-within .btn-copy {
     color: #0099e5;
 }
 
-/* GitHub Fork Ribbon */
-.github-fork-ribbon::before {
-    background-color: black;
-}
-
-.github-fork-ribbon::after {
-    font-family: "Funnel Sans", sans-serif;
-    font-weight: normal;
-}
