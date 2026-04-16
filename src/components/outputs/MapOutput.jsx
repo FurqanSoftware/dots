@@ -22,7 +22,7 @@ export function MapOutput({ records }) {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/furqansoftware/cmo118d8b000501s8bgtsh74i",
     });
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
     mapRef.current = map;
